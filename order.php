@@ -165,7 +165,7 @@ if($result_admin = mysqli_query($conn, $sql_admin))
 
       <?php
             
-            $sql = "SELECT * FROM orderlist, vendor, rider WHERE orderlist.vendor_name = vendor.vendor_name AND orderlist.rider_name = rider.rider_name AND orderlist.order_id = order_id";
+            $sql = "SELECT * FROM orderlist";
                 if ($result_order = mysqli_query($conn, $sql))
                     {
                         $rows_order = $result_order->fetch_array();
@@ -209,7 +209,7 @@ if($result_admin = mysqli_query($conn, $sql_admin))
                   <h3 class="font-weight-bold">Orders</h3>
                   <h6 class="font-weight-normal mb-0">All systems are running smoothly!</span></h6>
                 </div>
-                <button type="button" class="btn btn-primary btn-icon-text openButton" onclick="openForm()">
+                <button type="button" class="btn btn-primary btn-icon-text openButton" data-toggle="modal" data-target="#exampleModal">
                   <i class="ti-write btn-icon-prepend"></i>
                   Add Order
                 </button>
@@ -361,6 +361,142 @@ if (mysqli_num_rows($res_u) > 0 ) {
 
   <!-- End SQL tag insert order -->
 
+  <!--popup form add order-->
+  <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content" style="width: 702px;height: 752px;">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Add Order</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+      <form method="post">
+          <div class="row">
+            <div class="col-md-6">
+              <div class="form-group row">
+                <label class="col-sm-3 col-form-label">Order Number</label>
+                <div class="col-sm-9">
+                  <input type="text" name="order_no" class="form-control" required/>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group row">
+                <label class="col-sm-3 col-form-label">Date</label>
+                <div class="col-sm-9">
+                  <input type="date" name="date" class="form-control" placeholder="dd-mm-yyyy" required/>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-6">
+              <div class="form-group row">
+                <label class="col-sm-3 col-form-label">Vendor</label>
+                <div class="col-sm-9">
+                  <select name="vendor_name" class="form-control" required>
+                    <option>--Vendor--</option>
+                    <?php if($total_vendor>0) {do { ?>
+                    <option value="<?php echo $rows_vendor['vendor_name'];?>"><?php echo $rows_vendor['vendor_name'];?></option>
+                    <?php } while ($rows_vendor = $result_vendor->fetch_array());}?>
+                  </select>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group row">
+                <label class="col-sm-3 col-form-label">Rider</label>
+                <div class="col-sm-9">
+                <select name="rider_name" class="form-control" required>
+                    <option>--Rider--</option>
+                    <?php if($total_rider>0) {do { ?>
+                    <option value="<?php echo $rows_rider['rider_name'];?>"><?php echo $rows_rider['rider_name'];?></option>
+                    <?php } while ($rows_rider = $result_rider->fetch_array());}?>
+                  </select>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6">
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-6">
+              <div class="form-group row">
+                <label class="col-sm-3 col-form-label">Status</label>
+                <div class="col-sm-9">
+                  <select name="status" class="form-control" required>
+                    <option>--Order Status--</option>
+                    <option value="Delivered">Delivered</option>
+                    <option value="Failed">Failed</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group row">
+                <label class="col-sm-3 col-form-label">Type of Payment</label>
+                <div class="col-sm-9">
+                  <select name="type_pay" class="form-control" required>
+                    <option>--Payment--</option>
+                    <option value="Cash">Cash</option>
+                    <option value="FPX">FPX</option>
+                    <option value="Credit/Debit Card">Credit/Debit Card</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+          <div class="col-md-6">
+            <div class="form-group row">
+              <label class="col-sm-3 col-form-label">Delivery Fee(RM)</label>
+              <div class="col-sm-9">
+                <input type="text" name="delivery_fees" class="form-control" required/>
+              </div>
+            </div>
+          </div>
+            <div class="col-md-6">
+              <div class="form-group row">
+                <label class="col-sm-3 col-form-label">Tips(RM)</label>
+                <div class="col-sm-9">
+                  <input type="text" name="tips" class="form-control" required/>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-6">
+              <div class="form-group row">
+                <label class="col-sm-3 col-form-label">Gross Sale(RM)</label>
+                <div class="col-sm-9">
+                  <input type="text" class="form-control" placeholder="Geross" readonly/>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group row">
+                <label class="col-sm-3 col-form-label">Sum Order(RM)</label>
+                <div class="col-sm-9">
+                  <input type="text" class="form-control" placeholder="posen2" readonly/>
+                </div>
+              </div>
+            </div>
+            </div>
+            <div class="mt-3">
+              <button type="submit" name="add" class="btn btn-block btn-primary btn-lg font-weight-medium auth-form-btn">Add Order</button>
+            </div>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+      </div>
+    </div>
+  </div>
+</div>
+<!--end popup form add order-->
+
    <!-- Form rider -->
    <div class="col-md-8 grid-margin stretch-card formPopup" id="popupForm"  style="background-color: #9796f4; border-radius: 5%;">  <div class="card-body" style="padding-left: 0px; padding-right: 0px;"><a class="close" href="#" onclick="closeForm()">&times;</a>
         <h3 class="card-title">Add Order</h3>
@@ -479,6 +615,7 @@ if (mysqli_num_rows($res_u) > 0 ) {
             <div class="mt-3">
               <button type="submit" name="add" class="btn btn-block btn-primary btn-lg font-weight-medium auth-form-btn">Add Order</button>
             </div>
+          </div>
          </form>
       </div>
   </div>

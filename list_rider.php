@@ -184,7 +184,7 @@ if($result_admin = mysqli_query($conn, $sql_admin))
                   <h3 class="font-weight-bold">Maqan Rider</h3>
                   <h6 class="font-weight-normal mb-0">All systems are running smoothly!</span></h6>
                 </div>
-                <button type="button" class="btn btn-primary btn-icon-text openButton" onclick="openForm()">
+                <button type="button" class="btn btn-primary btn-icon-text openButton" data-toggle="modal" data-target="#exampleModal">
                     <i class="ti-plus btn-icon-prepend"></i>
                     <i class="ti-user btn-icon-prepend"></i>
                     Add Rider
@@ -240,8 +240,8 @@ if($result_admin = mysqli_query($conn, $sql_admin))
                         <?php echo $rows_rider['address'];?>
                         </td>
                         <td>
-                          <button title="Edit" type="button" class="btn btn-primary btn-rounded btn-icon" onclick="openForm2()">
-                              <i class="ti-write"></i>
+                          <button title="Edit" type="button" class="btn btn-primary btn-rounded btn-icon" data-toggle="modal" data-target="#exampleModal2">
+                            <i class="ti-write"></i>
                           </button>
                         <a href="delete_rider?rider_id=<?php echo $rows_rider['rider_id'];?>">
                           <button title="Delete" type="button" class="btn btn-primary btn-rounded btn-icon">
@@ -277,12 +277,18 @@ if($result_admin = mysqli_query($conn, $sql_admin))
   </div>
   <!-- container-scroller -->
 
-  <!-- Form rider -->
-  <div class="col-md-6 grid-margin stretch-card formPopup overlay" id="popupForm" style="background-color: #9796f4;">
-    <div class="card" style="background-color: #9796f4;">
-      <div class="card-body"><a class="close" href="#" onclick="closeForm()">&times;</a>
-        <h4 class="card-title">Add Maqan Rider</h4>
-        <form class="forms-sample" method="post" action="add_rider">
+  <!--popup form add rider-->
+  <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Add Rider</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+      <form method="post" action="add_rider">
           <div class="form-group">
             <label>Rider Name</label>
             <input type="text" name="name" class="form-control" id="" placeholder="Name" required>
@@ -308,10 +314,60 @@ if($result_admin = mysqli_query($conn, $sql_admin))
           </div>
         </form>
       </div>
+      <div class="modal-footer">
+      </div>
     </div>
   </div>
+</div>
+<!--end popup form add rider-->
 
-   <!-- SQL Tag call edit rider -->
+<!--popup form edit rider-->
+  <div class="modal fade" id="exampleModal2" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Edit Rider</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form method="post">
+        <?php if($total_edit>0) {do { ?>
+          <div class="form-group">
+            <label>Rider Name</label>
+            <input type="text" name="name" class="form-control" id="" placeholder="<?php echo $rows_edit['address'];?>" required>
+          </div>
+          <div class="form-group">
+            <label>Address</label>
+            <input type="text" name="address" class="form-control" id="" placeholder="<?php echo $rows_edit['rider_name'];?>" required>
+          </div>
+          <div class="form-group">
+            <label>Phone No.</label>
+            <input type="text" name="phone_no" class="form-control" id="" placeholder="<?php echo $rows_edit['phone_no'];?>" required>
+          </div>
+          <div class="form-group">
+            <label>Status</label>
+            <select name="status" class="form-control" required>
+                    <option><?php echo $rows_edit['status'];?></option>
+                    <option value="Active">Active</option>
+                    <option value="Deactivate">Deactivate</option>
+                  </select>
+          </div>
+          <div class="mt-3">
+              <button type="submit" name="update" class="btn btn-block btn-primary btn-lg font-weight-medium auth-form-btn">Submit</button>
+          </div>
+          <?php } while ($rows_edit = $result_edit->fetch_array());}?>
+        </form>
+      </div>
+      <div class="modal-footer">
+      </div>
+    </div>
+  </div>
+</div>
+<!--end popup form edit rider-->
+
+  <!-- SQL Tag call edit rider -->
    <?php
             $sql = "SELECT * FROM rider WHERE rider_id = '".$_GET['rider_id']."'";
             if ($result_edit = mysqli_query($conn, $sql))
@@ -336,57 +392,22 @@ if($result_admin = mysqli_query($conn, $sql_admin))
                       }
                     }
     ?>
-      <!-- End SQL Tag call edit rider -->
+    <!-- End SQL Tag call edit rider -->
 
-  <!-- Edit Rider -->
-  <div class="col-md-6 grid-margin stretch-card formPopup overlay" id="popupForm2" style="background-color: #9796f4;">
-    <div class="card" style="background-color: #9796f4;">
-      <div class="card-body"><a class="close" href="#" onclick="closeForm2()">&times;</a>
-        <h4 class="card-title">Edit Maqan Rider</h4>
-        <form class="forms-sample" method="post" action="">
-          <div class="form-group">
-            <label>Rider Name</label>
-            <input type="text" name="rider_name" class="form-control" id="" value="HAZIQ" required>
-          </div>
-          <div class="form-group">
-            <label>Address</label>
-            <input type="text" name="address" class="form-control" id="" value="NO 7 JALAN PULAI 11 TAMAN BUKIT TIRAM" required>
-          </div>
-          <div class="form-group">
-            <label>Phone No.</label>
-            <input type="text" name="phone_no" class="form-control" id="" value="0197621919" required>
-          </div>
-          <div class="form-group">
-            <label>Status</label>
-            <select name="status" class="form-control" required>
-                    <option>--Status--</option>
-                    <option value="Active">Active</option>
-                    <option value="Deactivate">Deactivate</option>
-                  </select>
-          </div>
-          <div class="form-check form-check-flat form-check-primary">
-          </div>
-          <button type="submit" name="update" class="btn btn-primary mr-2">Update</button>
-         </form>
-         </div>
-    </div>
-  </div>
- <script>
-    function openForm() {
-      document.getElementById("popupForm").style.display = "block";
-    }
-    function closeForm() {
-      document.getElementById("popupForm").style.display = "none";
-    }
-  </script>
+  <!-- js call up popup from-->
   <script>
-    function openForm2() {
-      document.getElementById("popupForm2").style.display = "block";
-    }
-    function closeForm2() {
-      document.getElementById("popupForm2").style.display = "none";
-    }
+    $('#exampleModal').on('show.bs.modal', function (event) {
+      var button = $(event.relatedTarget) // Button that triggered the modal
+      var recipient = button.data('whatever') // Extract info from data-* attributes
+      // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
+      // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
+      var modal = $(this)
+      modal.find('.modal-title').text('New message to ' + recipient)
+      modal.find('.modal-body input').val(recipient)
+})
   </script>
+  <!-- end js call up popup from-->
+
   <!-- plugins:js -->
   <script src="vendors/js/vendor.bundle.base.js"></script>
   <!-- endinject -->
