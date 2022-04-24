@@ -347,22 +347,22 @@ if($result_admin = mysqli_query($conn, $sql_admin))
       <form method="post" action="add_vendor">
           <div class="form-group">
             <label>Vendor Name</label>
-            <input type="text" name="vendor_name" class="form-control" id="" placeholder="Vendor Name" required>
+            <input type="text" name="vendor_name" class="form-control" id="" value="Vendor Name" required>
           </div>
           <div class="form-group">
             <label>Owner Name</label>
-            <input type="text" name="owner_name" class="form-control" id="" placeholder="Name" required>
+            <input type="text" name="owner_name" class="form-control" id="" value="Name" required>
           </div>
           <div class="form-group">
             <label>Address</label>
-            <input type="text" name="vendor_add" class="form-control" id="" placeholder="Address" required>
+            <input type="text" name="vendor_add" class="form-control" id="" value="Address" required>
           </div>
           <div class="form-group">
             <label>SSM Number</label>
-            <input type="text" name="ssm_no" class="form-control" id="" placeholder="SSM" required>
+            <input type="text" name="ssm_no" class="form-control" id="" value="SSM" required>
           </div>
           <div class="mt-3">
-              <button type="submit" name="add" class="btn btn-block btn-primary btn-lg font-weight-medium auth-form-btn">Submit</button>
+              <button type="submit" name="update" class="btn btn-block btn-primary btn-lg font-weight-medium auth-form-btn">Submit</button>
           </div>
         </form>
       </div>

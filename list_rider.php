@@ -36,6 +36,7 @@ if($result_admin = mysqli_query($conn, $sql_admin))
   <link rel="stylesheet" href="css/vertical-layout-light/style.css">
   <!-- endinject -->
   <link rel="shortcut icon" href="images/Zaiwani_logo2.png" />
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 </head>
 <style>
   @import"compass/css3";
@@ -240,7 +241,7 @@ if($result_admin = mysqli_query($conn, $sql_admin))
                         <?php echo $rows_rider['address'];?>
                         </td>
                         <td>
-                          <button title="Edit" type="button" class="btn btn-primary btn-rounded btn-icon" data-toggle="modal" data-target="#exampleModal2">
+                          <button id="Edit" title="Edit" type="button" class="btn btn-primary btn-rounded btn-icon" data-toggle="modal" data-target="#myModal" data-id="<?php echo $rows_rider['rider_id'];?>#editB">
                             <i class="ti-write"></i>
                           </button>
                         <a href="delete_rider?rider_id=<?php echo $rows_rider['rider_id'];?>">
@@ -321,8 +322,27 @@ if($result_admin = mysqli_query($conn, $sql_admin))
 </div>
 <!--end popup form add rider-->
 
+ <!-- SQL Tag call edit rider -->
+ <?php
+            if(isset($_POST['update']))
+                    {
+                      
+                      $sql_update = "UPDATE rider SET rider_name = '".$_POST['rider_name']."', address = '".$_POST['address']."', phone_no = '".$_POST['phone_no']."', status = '".$_POST['status']."'";
+                      if($result_update = mysqli_query($conn, $sql_update))
+                      {
+                        echo "<script language=javascript>alert('Rider Updated!');
+                        window.location='list_rider';</script>";
+                      }
+                      else
+                      {
+                        echo" FAILED ";
+                      }
+                    }
+  ?>
+  <!-- End SQL Tag call edit rider -->
+
 <!--popup form edit rider-->
-  <div class="modal fade" id="exampleModal2" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal fade" method="get" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
@@ -336,19 +356,19 @@ if($result_admin = mysqli_query($conn, $sql_admin))
         <?php if($total_edit>0) {do { ?>
           <div class="form-group">
             <label>Rider Name</label>
-            <input type="text" name="name" class="form-control" id="" placeholder="<?php echo $rows_edit['address'];?>" required>
+            <input type="text" id="name" name="name" class="form-control" id="" value="<?php echo $rows_edit['rider_name'];?>" required>
           </div>
           <div class="form-group">
             <label>Address</label>
-            <input type="text" name="address" class="form-control" id="" placeholder="<?php echo $rows_edit['rider_name'];?>" required>
+            <input type="text" id="address" name="address" class="form-control" id="" value="<?php echo $rows_edit['address'];?>" required>
           </div>
           <div class="form-group">
             <label>Phone No.</label>
-            <input type="text" name="phone_no" class="form-control" id="" placeholder="<?php echo $rows_edit['phone_no'];?>" required>
+            <input type="text" id="phone_no" name="phone_no" class="form-control" id="" value="<?php echo $rows_edit['phone_no'];?>" required>
           </div>
           <div class="form-group">
             <label>Status</label>
-            <select name="status" class="form-control" required>
+            <select name="status" id="status" class="form-control" required>
                     <option><?php echo $rows_edit['status'];?></option>
                     <option value="Active">Active</option>
                     <option value="Deactivate">Deactivate</option>
@@ -367,33 +387,6 @@ if($result_admin = mysqli_query($conn, $sql_admin))
 </div>
 <!--end popup form edit rider-->
 
-  <!-- SQL Tag call edit rider -->
-   <?php
-            $sql = "SELECT * FROM rider WHERE rider_id = '".$_GET['rider_id']."'";
-            if ($result_edit = mysqli_query($conn, $sql))
-                {
-                    $rows_edit = $result_edit->fetch_array();
-                    $total_edit = $result_edit->num_rows;
-                    $num_edit = 0;
-                }	
-
-            if(isset($_POST['update']))
-                    {
-                      
-                      $sql_update = "UPDATE rider SET rider_name = '".$_POST['rider_name']."', address = '".$_POST['address']."', phone_no = '".$_POST['phone_no']."', status = '".$_POST['status']."'";
-                      if($result_update = mysqli_query($conn, $sql_update))
-                      {
-                        echo "<script language=javascript>alert('Rider Updated!');
-                        window.location='list_rider';</script>";
-                      }
-                      else
-                      {
-                        echo" FAILED ";
-                      }
-                    }
-    ?>
-    <!-- End SQL Tag call edit rider -->
-
   <!-- js call up popup from-->
   <script>
     $('#exampleModal').on('show.bs.modal', function (event) {
@@ -406,7 +399,44 @@ if($result_admin = mysqli_query($conn, $sql_admin))
       modal.find('.modal-body input').val(recipient)
 })
   </script>
+  <script type="text/javascript">
+    $('#myModal').on('shown.bs.modal', function () {
+    $('#myInput').focus()
+    })
+  </script>
   <!-- end js call up popup from-->
+  <script>
+    $(document).on("click", ".open-modal", function () {
+         var id = $(this).data('id');
+         alert(id) 
+
+        /*
+        proceed with rest of modal using the id variable as necessary 
+        */
+    });
+  </script>
+  <script>
+    $("#Edit").click(function(e){
+
+    e.preventDefault();
+
+    var uid = $(this).data('id'); // get id of clicked row
+
+    $.ajax({
+     url: 'getrider.php',
+     type: 'POST',
+     data: {id: uid},
+     dataType: 'json',
+     success: function(response){
+         var result = JSON && JSON.parse(response) || $.parseJSON(response);
+         $("#name").val(result[0]);
+         $("#address").val(result[1]);
+         $("#phone_no").val(result[2]);
+         $("#status").val(result[3]);
+       }
+}); 
+});
+  </script>
 
   <!-- plugins:js -->
   <script src="vendors/js/vendor.bundle.base.js"></script>
