@@ -241,7 +241,7 @@ if($result_admin = mysqli_query($conn, $sql_admin))
                         <?php echo $rows_rider['address'];?>
                         </td>
                         <td>
-                          <button id="Edit" title="Edit" type="button" class="btn btn-primary btn-rounded btn-icon" data-toggle="modal" data-target="#myModal" data-id="<?php echo $rows_rider['rider_id'];?>#editB">
+                          <button id="Edit" title="Edit" type="button" class="btn btn-primary btn-rounded btn-icon" data-toggle="modal" data-target="#editModal" data-id="<?php echo $rows_rider['rider_id'];?>#editB">
                             <i class="ti-write"></i>
                           </button>
                         <a href="delete_rider?rider_id=<?php echo $rows_rider['rider_id'];?>">
@@ -342,7 +342,7 @@ if($result_admin = mysqli_query($conn, $sql_admin))
   <!-- End SQL Tag call edit rider -->
 
 <!--popup form edit rider-->
-  <div class="modal fade" method="get" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal fade" method="get" id="editModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
@@ -352,22 +352,22 @@ if($result_admin = mysqli_query($conn, $sql_admin))
         </button>
       </div>
       <div class="modal-body">
-        <form method="post">
+        <form method="post" id="Edit">
         <?php if($total_edit>0) {do { ?>
           <div class="form-group">
-            <label>Rider Name</label>
-            <input type="text" id="name" name="name" class="form-control" id="" value="<?php echo $rows_edit['rider_name'];?>" required>
+            <label for="nameInput">Rider Name</label>
+            <input type="text" id="name" name="name" class="form-control" value="<?php echo $rows_edit['rider_name'];?>" required>
           </div>
           <div class="form-group">
-            <label>Address</label>
-            <input type="text" id="address" name="address" class="form-control" id="" value="<?php echo $rows_edit['address'];?>" required>
+            <label for="addressinput">Address</label>
+            <input type="text" id="address" name="address" class="form-control" value="<?php echo $rows_edit['address'];?>" required>
           </div>
           <div class="form-group">
-            <label>Phone No.</label>
-            <input type="text" id="phone_no" name="phone_no" class="form-control" id="" value="<?php echo $rows_edit['phone_no'];?>" required>
+            <label for="phone_noInput">Phone No.</label>
+            <input type="text" id="phone_no" name="phone_no" class="form-control" value="<?php echo $rows_edit['phone_no'];?>" required>
           </div>
           <div class="form-group">
-            <label>Status</label>
+            <label for="statusInput">Status</label>
             <select name="status" id="status" class="form-control" required>
                     <option><?php echo $rows_edit['status'];?></option>
                     <option value="Active">Active</option>
