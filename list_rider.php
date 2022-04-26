@@ -31,6 +31,7 @@ if($result_admin = mysqli_query($conn, $sql_admin))
   <link rel="stylesheet" href="vendors/datatables.net-bs4/dataTables.bootstrap4.css">
   <link rel="stylesheet" href="vendors/ti-icons/css/themify-icons.css">
   <link rel="stylesheet" type="text/css" href="js/select.dataTables.min.css">
+  <link rel = "stylesheet" href="https://mxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.js" />
   <!-- End plugin css for this page -->
   <!-- inject:css -->
   <link rel="stylesheet" href="css/vertical-layout-light/style.css">
@@ -241,7 +242,7 @@ if($result_admin = mysqli_query($conn, $sql_admin))
                         <?php echo $rows_rider['address'];?>
                         </td>
                         <td>
-                          <button id="Edit" title="Edit" type="button" class="btn btn-primary btn-rounded btn-icon" data-toggle="modal" data-target="#editModal" data-id="<?php echo $rows_rider['rider_id'];?>#editB">
+                          <button id="Edit" title="Edit" type="button" class="btn btn-primary btn-rounded btn-icon" data-toggle="modal" data-target="#editModal" data-id="<?php echo $rows_rider['rider_id'];?>">
                             <i class="ti-write"></i>
                           </button>
                         <a href="delete_rider?rider_id=<?php echo $rows_rider['rider_id'];?>">
@@ -407,7 +408,7 @@ if($result_admin = mysqli_query($conn, $sql_admin))
   <!-- end js call up popup from-->
   <script>
     $(document).on("click", ".open-modal", function () {
-         var id = $(this).data('id');
+         var id = $(this).data('rider_id');
          alert(id) 
 
         /*
@@ -420,7 +421,7 @@ if($result_admin = mysqli_query($conn, $sql_admin))
 
     e.preventDefault();
 
-    var uid = $(this).data('id'); // get id of clicked row
+    var uid = $(this).data('rider_id'); // get id of clicked row
 
     $.ajax({
      url: 'getrider.php',
@@ -434,8 +435,8 @@ if($result_admin = mysqli_query($conn, $sql_admin))
          $("#phone_no").val(result[2]);
          $("#status").val(result[3]);
        }
-}); 
-});
+    }); 
+  });
   </script>
 
   <!-- plugins:js -->
