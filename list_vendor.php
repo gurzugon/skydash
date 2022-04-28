@@ -160,7 +160,7 @@ if($result_admin = mysqli_query($conn, $sql_admin))
         </ul>
       </nav>
 
-        <!-- SQL Tag call vendor -->
+      <!-- SQL Tag call vendor -->
       <?php
             $sql = "SELECT * FROM vendor";
                 if ($result_vendor = mysqli_query($conn, $sql))
@@ -238,13 +238,16 @@ if($result_admin = mysqli_query($conn, $sql_admin))
                         <?php echo $rows_vendor['vendor_add'];?>
                         </td>
                         <td>
-                            <button title="Edit" type="button" class="btn btn-primary btn-rounded btn-icon" data-toggle="modal" data-target="#exampleModal2">
+                            <a href="edit_vendor?vendor_id=<?php echo $rows_vendor['vendor_id'];?>">
+                            <button title="Edit" type="button" class="btn btn-primary btn-rounded btn-icon" data-toggle="modal">
                                 <i class="ti-write"></i>
                             </button>
+                            </a>
                             <a href="delete_vendor?vendor_id=<?php echo $rows_vendor['vendor_id'];?>">
                             <button title="Delete" type="button" class="btn btn-primary btn-rounded btn-icon">
                                 <i class="ti-trash"></i>
                             </button>
+                            </a>
                         </td>
                       </tr>
                       <?php } while ($rows_vendor = $result_vendor->fetch_array());} else {?>

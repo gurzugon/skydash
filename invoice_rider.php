@@ -206,7 +206,7 @@ if($result_admin = mysqli_query($conn, $sql_admin))
                 <div class="card">
                   <div class="card-body">
                     <h4 class="card-title">Search Rider Statement</h4>
-                    <form class="form-inline" method="GET" action="search">
+                    <form class="form-inline" method="POST">
                       <label class="sr-only" for="inlineFormInputName2">Rider Name</label>
                             <select name="rider_name" class="form-control mb-2 mr-sm-2">
                             <option>Select Rider</option>
@@ -216,12 +216,27 @@ if($result_admin = mysqli_query($conn, $sql_admin))
                             </select>
                       <label class="sr-only" for="inlineFormInputName2">Date</label>
                       <input type="date" name="date" class="form-control mb-2 mr-sm-2">
-                      <button name="search" type="submit" class="btn btn-primary mb-2">Search</button>
+                      <button type="submit" class="btn btn-primary mb-2">Search</button>
                     </form>
                   </div>
                 </div>
             </div>
-             
+
+              <!-- SQL Tag search order -->
+              <?php
+              $rider_name = $_POST['rider_name'];
+              $date = $_POST['date'];
+
+              $sql = "SELECT * FROM orderlist WHERE rider_name LIKE '%$rider_name%' AND date LIKE '%$date%'";
+                if ($result_order = mysqli_query($conn, $sql))
+                    {
+                        $rows_search = $result_search->fetch_assoc();
+                        $total_search = $result_search->num_rows;
+                        $num_search = 0;
+                    }	
+              ?>
+              <!-- End SQL Tag search order -->
+
                 <div class="col-lg-12 grid-margin stretch-card" id="result">
                   <div class="card">
                     <div class="card-body">
@@ -254,31 +269,31 @@ if($result_admin = mysqli_query($conn, $sql_admin))
                             </tr>
                           </thead>
                           <tbody>
-                          <?php if($total_order>0) {do { ?>
+                          <?php if($total_search>0) {do { ?>
                             <tr>
                               <td>
-                              <?php echo $rows_order['order_no'];?>
+                              <?php echo $rows_search['order_no'];?>
                               </td>
                               <td>
-                              <?php echo $rows_order['rider_name'];?>
+                              <?php echo $rows_search['rider_name'];?>
                               </td>
                               <td>
-                              <?php echo $rows_order['date'];?>
+                              <?php echo $rows_search['date'];?>
                               </td>
                               <td>
-                              <?php echo $rows_order['delivery_fees'];?>
+                              <?php echo $rows_search['delivery_fees'];?>
                               </td>
                               <td>
-                              <?php echo $rows_order['tips'];?>
+                              <?php echo $rows_search['tips'];?>
                               </td>
                               <td>
-                              <?php echo $rows_order['delivery_fees'];?>
+                              <?php echo $rows_search['delivery_fees'];?>
                               </td>
                               <td>
                               30.00
                               </td>
                             </tr>
-                            <?php } while ($rows_order = $result_order->fetch_array());}?>
+                            <?php } while ($rows_search = $result_search->fetch_array());}?>
                           </tbody>
                         </table>
                       </div>

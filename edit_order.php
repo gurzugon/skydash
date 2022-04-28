@@ -162,108 +162,112 @@ if($result_admin = mysqli_query($conn, $sql_admin))
           </li>
         </ul>
       </nav>
-
-       <!-- SQL Tag call rider -->
-       <?php
-            $sql = "SELECT * FROM rider";
-                if ($result_rider = mysqli_query($conn, $sql))
+    
+         <!-- SQL Tag call vendor -->
+    <?php
+            $sql = "SELECT * FROM orderlist WHERE order_id = $_GET[order_id]";
+                if ($result_order = mysqli_query($conn, $sql))
                     {
-                        $rows_rider = $result_rider->fetch_array();
-                        $total_rider = $result_rider->num_rows;
-                        $num_rider = 0;
+                        $rows_order = $result_order->fetch_array();
+                        $total_order = $result_order->num_rows;
+                        $num_order = 0;
                     }	
         ?>
-      <!-- End SQL Tag call rider -->
+      <!-- End SQL Tag call vendor -->
+
+      <!-- SQL Tag call update vendor -->
+    <?php
+            if(isset($_POST['update']))
+                    {
+                      
+                      $sql_update = "UPDATE orderlist SET order_no = '".$_POST['order_no']."', date = '".$_POST['date']."', 
+                      status = '".$_POST['status']."', vendor_name = '".$_POST['vendor_name']."', rider_name = '".$_POST['rider_name']."', 
+                      type_pay = '".$_POST['type_pay']."', tips = '".$_POST['tips']."', delivery_fees = '".$_POST['delivery_fees']."' WHERE order_id = '".$_GET['order_id']."'";
+                      if($result_update = mysqli_query($conn, $sql_update))
+                      {
+                        echo "<script language=javascript>alert('Vendor Updated!');
+                        window.location='order';</script>";
+                      }
+                      else
+                      {
+                        echo" FAILED ";
+                      }
+                    }
+    ?>
+      <!-- End SQL Tag call update vendor -->
 
       <!-- partial -->
       <div class="main-panel">
         <div class="content-wrapper">
-          <div class="row">
-            <div class="col-md-12 grid-margin">
-              <div class="row">
+            <div class="row">
                 <div class="col-12 col-xl-8 mb-4 mb-xl-0">
-                  <h3 class="font-weight-bold">Maqan Rider</h3>
+                  <h3 class="font-weight-bold">Update Order</h3>
                   <h6 class="font-weight-normal mb-0">All systems are running smoothly!</span></h6>
                 </div>
-                <button type="button" class="btn btn-primary btn-icon-text openButton" data-toggle="modal" data-target="#exampleModal">
-                    <i class="ti-plus btn-icon-prepend"></i>
-                    <i class="ti-user btn-icon-prepend"></i>
-                    Add Rider
-                  </button>
-              </div>
-            </div>
-          </div>
-         
-          <div class="col-lg-12 grid-margin stretch-card">
-            <div class="card">
-              <div class="card-body">
-                <h4 class="card-title">Rider Details</h4>
-                <div class="table-responsive">
-                  <table class="table table-striped">
-                    <thead>
-                      <tr>
-                        <th>
-                          Rider
-                        </th>
-                        <th>
-                          Rider Name
-                        </th>
-                        <th>
-                          Status
-                        </th>
-                        <th>
-                          Phone No.
-                        </th>
-                        <th>
-                          Address
-                        </th>
-                        <th>
-                          Action
-                        </th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                    <?php if($total_rider>0) {do { ?>
-                      <tr>
-                        <td class="py-1">
-                          <img src="images/faces/rider.png" alt="image"/>
-                        </td>
-                        <td>
-                        <?php echo $rows_rider['rider_name'];?>
-                        </td>
-                        <td>
-                        <?php echo $rows_rider['status'];?>
-                        </td>
-                        <td>
-                        <?php echo $rows_rider['phone_no'];?>
-                        </td>
-                        <td>
-                        <?php echo $rows_rider['address'];?>
-                        </td>
-                        <td>
-                        <a href="edit_rider?rider_id=<?php echo $rows_rider['rider_id'];?>">
-                          <button title="Edit" type="button" class="btn btn-primary btn-rounded btn-icon" data-toggle="modal">
-                            <i class="ti-write"></i>
-                          </button>
-                        </a>
-                        <a href="delete_rider?rider_id=<?php echo $rows_rider['rider_id'];?>">
-                          <button title="Delete" type="button" class="btn btn-primary btn-rounded btn-icon">
-                            <i class="ti-trash"></i>
-                          </button>
-                        </a>
-                      </td>
-                      </tr>
-                      <?php } while ($rows_rider = $result_rider->fetch_array());} else {?>
-	                     <tr>
-		                  <td colspan=6 align="center">No Record!</td>
-	                     </tr>
-	                    <?php } ?> 
-                    </tbody>
-                  </table>
+               </div><br><br>
+            <div class="col-12 grid-margin stretch-card">
+                <div class="card">
+                  <div class="card-body">
+                  <?php if($total_order>0) {do { ?>
+                   <form class="forms-sample" method="post">
+                      <div class="form-group">
+                        <label>Order No.</label>
+                        <input type="text" name="order_no" class="form-control" value="<?php echo $rows_order['order_no'];?>">
+                      </div>
+                      <div class="form-group">
+                        <label>Date</label>
+                        <input type="date" name="date" class="form-control" value="<?php echo $rows_order['date'];?>">
+                      </div>
+                      <div class="form-group">
+                        <label>Status</label>
+                          <select class="form-control" name="status">
+                            <option><?php echo $rows_order['status'];?></option>
+                            <option value="Delivered">Delivered</option>
+                            <option value="Failed">Failed</option>
+                          </select>
+                        </div>
+                      <div class="form-group">
+                        <label>Vendor Name</label>
+                        <input type="text" name="vendor_name" class="form-control" value="<?php echo $rows_order['vendor_name'];?>">
+                      </div>
+                      <div class="form-group">
+                        <label>Rider Name</label>
+                        <input type="text" name="rider_name" class="form-control" value="<?php echo $rows_order['rider_name'];?>">
+                      </div>
+                      <div class="form-group">
+                        <label>Type of Payments</label>
+                          <select class="form-control" name="type_pay">
+                            <option><?php echo $rows_order['type_pay'];?></option>
+                            <option value="Cash">Cash</option>
+                            <option value="FPX">FPX</option>
+                            <option value="Credit/Debit Card">Credit/Debit Card</option>
+                          </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Tips (RM)</label>
+                            <input type="text" name="tips" class="form-control" value="<?php echo $rows_order['tips'];?>">
+                          </div>
+                          <div class="form-group">
+                            <label>Delivery Fees (RM)</label>
+                            <input type="text" name="delivery_fees" class="form-control" value="<?php echo $rows_order['delivery_fees'];?>">
+                          </div>
+                          <div class="form-group">
+                            <label>Gross Sale (RM)</label>
+                            <input type="text" class="form-control" id="gross" placeholder="ringgit2" readonly/>
+                          </div>
+                          <div class="form-group">
+                            <label>Sum Order (RM)</label>
+                            <input type="text" class="form-control"id="sum" placeholder="posen2" readonly/>
+                          </div>
+                      <button name="update" type="submit" class="btn btn-primary mr-2">Update</button>
+                      <a href="list_rider">
+                        <input type="button" value="Back" class="btn btn-light mr-2" onClick="history.go(-1);">
+                      </a>
+                    </form>
+                    <?php } while ($rows_order = $result_order->fetch_array());}?>
+                  </div>
                 </div>
               </div>
-            </div>
-          </div>
         </div>
         <!-- content-wrapper ends -->
         <!-- partial:partials/_footer.html -->
@@ -279,79 +283,6 @@ if($result_admin = mysqli_query($conn, $sql_admin))
     <!-- page-body-wrapper ends -->
   </div>
   <!-- container-scroller -->
-
-  <!--popup form add rider-->
-  <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Add Rider</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-      <form method="post" action="add_rider">
-          <div class="form-group">
-            <label>Rider Name</label>
-            <input type="text" name="name" class="form-control" id="" placeholder="Name" required>
-          </div>
-          <div class="form-group">
-            <label>Address</label>
-            <input type="text" name="address" class="form-control" id="" placeholder="Address" required>
-          </div>
-          <div class="form-group">
-            <label>Phone No.</label>
-            <input type="text" name="phone_no" class="form-control" id="" placeholder="Phone" required>
-          </div>
-          <div class="form-group">
-            <label>Status</label>
-            <select name="status" class="form-control" required>
-                    <option>--Status--</option>
-                    <option value="Active">Active</option>
-                    <option value="Deactivate">Deactivate</option>
-                  </select>
-          </div>
-          <div class="mt-3">
-              <button type="submit" name="add" class="btn btn-block btn-primary btn-lg font-weight-medium auth-form-btn">Submit</button>
-          </div>
-        </form>
-      </div>
-      <div class="modal-footer">
-      </div>
-    </div>
-  </div>
-</div>
-<!--end popup form add rider-->
-
-  <!-- js call up popup from-->
-  <script>
-    $('#exampleModal').on('show.bs.modal', function (event) {
-      var button = $(event.relatedTarget) // Button that triggered the modal
-      var recipient = button.data('whatever') // Extract info from data-* attributes
-      // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
-      // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
-      var modal = $(this)
-      modal.find('.modal-title').text('New message to ' + recipient)
-      modal.find('.modal-body input').val(recipient)
-})
-  </script>
-  <script type="text/javascript">
-    $('#myModal').on('shown.bs.modal', function () {
-    $('#myInput').focus()
-    })
-  </script>
-  <!-- end js call up popup from-->
-  <script>
-    $(document).on("click", ".open-modal", function () {
-         var id = $(this).data('rider_id');
-         alert(id) 
-
-        /*
-        proceed with rest of modal using the id variable as necessary 
-        */
-    });
-  </script>
 
   <!-- plugins:js -->
   <script src="vendors/js/vendor.bundle.base.js"></script>

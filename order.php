@@ -289,13 +289,22 @@ if($result_admin = mysqli_query($conn, $sql_admin))
                                     </div>
                                   </div>
                                   <div class="expanded-table-normal-cell">
-                                    <div class="mr-2 mb-4">
-                                      <p>Address</p>
-                                      <h6><?php echo $rows_order['vendor_add'];?></h6>
+                                  <div class="mr-2 mb-3 d-flex">
+                                    <a href="edit_order?order_id=<?php echo $rows_order['order_id'];?>">
+                                    <button type="button" class="btn btn-primary btn-icon-text openButton">
+                                      <i class="ti-pencil btn-icon-prepend"></i>
+                                      Update
+                                    </button>
+                                    </a>
                                     </div>
+                                    <a href="delete_order?order_id=<?php echo $rows_order['order_id'];?>">
+                                      <button type="button" class="btn btn-primary btn-icon-text openButton">
+                                        <i class="ti-trash btn-icon-prepend"></i>
+                                        Delete &nbsp
+                                      </button>
+                                    </a>
                                   </div>
-                                  <div class="expanded-table-normal-cell">
-                                    
+                                  <div class="expanded-table-normal-cell">  
                                   </div>
                                 </div>
                               </div>
@@ -497,128 +506,6 @@ if (mysqli_num_rows($res_u) > 0 ) {
 </div>
 <!--end popup form add order-->
 
-   <!-- Form rider -->
-   <div class="col-md-8 grid-margin stretch-card formPopup" id="popupForm"  style="background-color: #9796f4; border-radius: 5%;">  <div class="card-body" style="padding-left: 0px; padding-right: 0px;"><a class="close" href="#" onclick="closeForm()">&times;</a>
-        <h3 class="card-title">Add Order</h3>
-        <form class="form-sample" method="post">
-          <div class="row">
-            <div class="col-md-6">
-              <div class="form-group row">
-                <label class="col-sm-3 col-form-label">Order Number</label>
-                <div class="col-sm-9">
-                  <input type="text" name="order_no" class="form-control" required/>
-                </div>
-              </div>
-            </div>
-            <div class="col-md-6">
-              <div class="form-group row">
-                <label class="col-sm-3 col-form-label">Date</label>
-                <div class="col-sm-9">
-                  <input type="date" name="date" class="form-control" placeholder="dd-mm-yyyy" required/>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="row">
-            <div class="col-md-6">
-              <div class="form-group row">
-                <label class="col-sm-3 col-form-label">Vendor</label>
-                <div class="col-sm-9">
-                  <select name="vendor_name" class="form-control" required>
-                    <option>--Vendor--</option>
-                    <?php if($total_vendor>0) {do { ?>
-                    <option value="<?php echo $rows_vendor['vendor_name'];?>"><?php echo $rows_vendor['vendor_name'];?></option>
-                    <?php } while ($rows_vendor = $result_vendor->fetch_array());}?>
-                  </select>
-                </div>
-              </div>
-            </div>
-            <div class="col-md-6">
-              <div class="form-group row">
-                <label class="col-sm-3 col-form-label">Rider</label>
-                <div class="col-sm-9">
-                <select name="rider_name" class="form-control" required>
-                    <option>--Rider--</option>
-                    <?php if($total_rider>0) {do { ?>
-                    <option value="<?php echo $rows_rider['rider_name'];?>"><?php echo $rows_rider['rider_name'];?></option>
-                    <?php } while ($rows_rider = $result_rider->fetch_array());}?>
-                  </select>
-                </div>
-              </div>
-            </div>
-            <div class="col-md-6">
-            </div>
-          </div>
-          <div class="row">
-            <div class="col-md-6">
-              <div class="form-group row">
-                <label class="col-sm-3 col-form-label">Status</label>
-                <div class="col-sm-9">
-                  <select name="status" class="form-control" required>
-                    <option>--Order Status--</option>
-                    <option value="Delivered">Delivered</option>
-                    <option value="Failed">Failed</option>
-                  </select>
-                </div>
-              </div>
-            </div>
-            <div class="col-md-6">
-              <div class="form-group row">
-                <label class="col-sm-3 col-form-label">Type of Payment</label>
-                <div class="col-sm-9">
-                  <select name="type_pay" class="form-control" required>
-                    <option>--Payment--</option>
-                    <option value="Cash">Cash</option>
-                    <option value="FPX">FPX</option>
-                    <option value="Credit/Debit Card">Credit/Debit Card</option>
-                  </select>
-                </div>
-              </div>
-            </div>
-          </div>
-         <div class="row">
-          <div class="col-md-6">
-            <div class="form-group row">
-              <label class="col-sm-3 col-form-label">Delivery Fee(RM)</label>
-              <div class="col-sm-9">
-                <input type="text" name="delivery_fees" class="form-control" required/>
-              </div>
-            </div>
-          </div>
-            <div class="col-md-6">
-              <div class="form-group row">
-                <label class="col-sm-3 col-form-label">Tips(RM)</label>
-                <div class="col-sm-9">
-                  <input type="text" name="tips" class="form-control" required/>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="row">
-            <div class="col-md-6">
-              <div class="form-group row">
-                <label class="col-sm-3 col-form-label">Gross Sale(RM)</label>
-                <div class="col-sm-9">
-                  <input type="text" class="form-control" placeholder="Geross" readonly/>
-                </div>
-              </div>
-            </div>
-            <div class="col-md-6">
-              <div class="form-group row">
-                <label class="col-sm-3 col-form-label">Sum Order(RM)</label>
-                <div class="col-sm-9">
-                  <input type="text" class="form-control" placeholder="posen2" readonly/>
-                </div>
-              </div>
-            </div>
-            </div>
-            <div class="mt-3">
-              <button type="submit" name="add" class="btn btn-block btn-primary btn-lg font-weight-medium auth-form-btn">Add Order</button>
-            </div>
-          </div>
-         </form>
-      </div>
-  </div>
   <script>
     function openForm() {
       document.getElementById("popupForm").style.display = "block";
@@ -626,6 +513,14 @@ if (mysqli_num_rows($res_u) > 0 ) {
     function closeForm() {
       document.getElementById("popupForm").style.display = "none";
     }
+  </script>
+  <script>
+        function calculateAmount(val) {
+          var tot_price = val * 100;
+          /*display the result*/
+          var divobj = document.getElementById('tot_amount');
+          divobj.value = tot_price;
+        }
   </script>
   <!-- plugins:js -->
   <script src="vendors/js/vendor.bundle.base.js"></script>

@@ -233,13 +233,22 @@
                                     </div>
                                   </div>
                                   <div class="expanded-table-normal-cell">
-                                    <div class="mr-2 mb-4">
-                                      <p>Address</p>
-                                      <h6>Kuantan, Sarawak</h6>
+                                    <div class="mr-2 mb-3 d-flex">
+                                    <a href="edit_order?order_id=<?php echo $rows_order['order_id'];?>">
+                                    <button type="button" class="btn btn-primary btn-icon-text openButton">
+                                      <i class="ti-pencil btn-icon-prepend"></i>
+                                      Update
+                                    </button>
+                                    </a>
                                     </div>
+                                    <a href="delete_order?order_id=<?php echo $rows_order['order_id'];?>">
+                                      <button type="button" class="btn btn-primary btn-icon-text openButton">
+                                        <i class="ti-trash btn-icon-prepend"></i>
+                                        Delete &nbsp
+                                      </button>
+                                      </a>
                                   </div>
-                                  <div class="expanded-table-normal-cell">
-                                    
+                                  <div class="expanded-table-normal-cell">  
                                   </div>
                                 </div>
                               </div>
