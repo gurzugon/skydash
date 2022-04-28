@@ -206,7 +206,7 @@ if($result_admin = mysqli_query($conn, $sql_admin))
                 <div class="card">
                   <div class="card-body">
                     <h4 class="card-title">Search Rider Statement</h4>
-                    <form class="form-inline" method="POST">
+                    <form class="form-inline" method="post">
                       <label class="sr-only" for="inlineFormInputName2">Rider Name</label>
                             <select name="rider_name" class="form-control mb-2 mr-sm-2">
                             <option>Select Rider</option>
@@ -289,11 +289,11 @@ if($result_admin = mysqli_query($conn, $sql_admin))
                               <td>
                               <?php echo $rows_search['delivery_fees'];?>
                               </td>
-                              <td>
+                              <td> 
                               30.00
                               </td>
                             </tr>
-                            <?php } while ($rows_search = $result_search->fetch_array());}?>
+                          <?php } while ($rows_search = $result_search->fetch_array());}?>
                           </tbody>
                         </table>
                       </div>
