@@ -20,7 +20,7 @@ if($result_admin = mysqli_query($conn, $sql_admin))
 <head>
   <!-- Required meta tags -->
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no"/>
   <title>Maqan Statement</title>
   <!-- plugins:css -->
   <link rel="stylesheet" href="vendors/feather/feather.css">
@@ -201,7 +201,20 @@ if($result_admin = mysqli_query($conn, $sql_admin))
                     </div>
                   </div>
                 </div>
-            </div>
+            </div> 
+
+              <!-- SQL Tag search order -->
+              <?php
+    
+              $rider_name = $_POST['rider_name'];
+              $date = $_POST['date'];
+
+	              $sql_search= "SELECT * FROM orderlist WHERE rider_name LIKE '%$rider_name%' AND date <= '%$date%'";
+	              $result = $conn->query($sql);
+
+              ?>
+              <!-- End SQL Tag search order -->
+  
             <div class="col-12 grid-margin stretch-card">
                 <div class="card">
                   <div class="card-body">
@@ -216,31 +229,13 @@ if($result_admin = mysqli_query($conn, $sql_admin))
                             </select>
                       <label class="sr-only" for="inlineFormInputName2">Date</label>
                       <input type="date" name="date" class="form-control mb-2 mr-sm-2">
-                      <input name="search" type="submit" class="btn btn-primary mb-2"></input>
+                      <input name="search" type="submit" class="btn btn-primary mb-2">
                     </form>
                   </div>
                 </div>
             </div>
 
-              <!-- SQL Tag search order -->
-              <?php
-              isset($_POST['search']);
-
-              $rider_name = $_POST['rider_name'];
-              $date = $_POST['date'];
-              
-              $sql = "SELECT * FROM orderlist WHERE rider_name LIKE '%$rider_name%' AND date LIKE '%$date%'";
-                if ($result_order = mysqli_query($conn, $sql))
-                    {
-                        $rows_search = $result_search->fetch_assoc();
-                        $total_search = $result_search->num_rows;
-                        $num_search = 0;
-                    }	
-              
-              ?>
-              <!-- End SQL Tag search order -->
-  
-                <div class="col-lg-12 grid-margin stretch-card" id="result">
+                <div class="col-lg-12 grid-margin stretch-card">
                   <div class="card">
                     <div class="card-body">
                       <h4 class="card-title">Rider Statement</h4>
@@ -272,35 +267,35 @@ if($result_admin = mysqli_query($conn, $sql_admin))
                             </tr>
                           </thead>
                           <tbody>
-                          <?php if($total_search>0) {do { ?>
+                          <?php if ($result->num_rows > 0){
+                                while($row = $result->fetch_assoc() ){ ?>
                             <tr>
                               <td>
-                              <?php echo $rows_search['order_no'];?>
+                              <?php echo $row['order_no'];?>
                               </td>
                               <td>
-                              <?php echo $rows_search['rider_name'];?>
+                              <?php echo $row['rider_name'];?>
                               </td>
                               <td>
-                              <?php echo $rows_search['date'];?>
+                              <?php echo $row['date'];?>
                               </td>
                               <td>
-                              <?php echo $rows_search['delivery_fees'];?>
+                              <?php echo $row['delivery_fees'];?>
                               </td>
                               <td>
-                              <?php echo $rows_search['tips'];?>
+                              <?php echo $row['tips'];?>
                               </td>
                               <td>
-                              <?php echo $rows_search['delivery_fees'];?>
+                              <?php echo $row['delivery_fees'];?>
                               </td>
                               <td> 
                               30.00
                               </td>
                             </tr>
-                              <?php } while ($rows_search = $result_search->fetch_array());} else {?>
+                              <?php } } else {?>
                             <tr>
-		                          <td colspan="7" align="center">No Order Recorded!</td>
+		                          <td colspan="7" align="center"><?php  echo "No records";} ?></td>
 	                          </tr>
-	                            <?php } ?>
                           </tbody>
                         </table>
                       </div>

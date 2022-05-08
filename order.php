@@ -19,7 +19,7 @@ if($result_admin = mysqli_query($conn, $sql_admin))
 <head>
   <!-- Required meta tags -->
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no"/>
   <title>Maqan Statement</title>
   <!-- plugins:css -->
   <link rel="stylesheet" href="vendors/feather/feather.css">
@@ -381,7 +381,7 @@ if (mysqli_num_rows($res_u) > 0 ) {
         </button>
       </div>
       <div class="modal-body">
-      <form method="post">
+      <form method="post" name="myform">
           <div class="row">
             <div class="col-md-6">
               <div class="form-group row">
@@ -522,6 +522,21 @@ if (mysqli_num_rows($res_u) > 0 ) {
           divobj.value = tot_price;
         }
   </script>
+  <script>  
+  function calculate() {   
+    if(isNaN(document.forms["myform"]["qty"].value) || document.forms["myform"]["qty"].value=="") {   
+      var text1 = 0;   
+    } else {   
+      var text1 = parseInt(document.forms["myform"]["qty"].value);   
+    }   
+    if(isNaN(document.forms["myform"]["Cost"].value) || document.forms["myform"]["Cost"].value=="") {   
+      var text2 = 0;   
+    } else {   
+      var text2 = parseFloat(document.forms["myform"]["Cost"].value);   
+    }   
+      document.forms["myform"]["textbox5"].value = (text1*text2);   
+    }  
+</script>    
   <!-- plugins:js -->
   <script src="vendors/js/vendor.bundle.base.js"></script>
   <!-- endinject -->
