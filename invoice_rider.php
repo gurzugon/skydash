@@ -206,7 +206,7 @@ if($result_admin = mysqli_query($conn, $sql_admin))
                 <div class="card">
                   <div class="card-body">
                     <h4 class="card-title">Search Rider Statement</h4>
-                    <form class="form-inline" method="post">
+                    <form class="form-inline" method="post" enctype="multipart/form-data">
                       <label class="sr-only" for="inlineFormInputName2">Rider Name</label>
                             <select name="rider_name" class="form-control mb-2 mr-sm-2">
                             <option>Select Rider</option>
@@ -216,7 +216,7 @@ if($result_admin = mysqli_query($conn, $sql_admin))
                             </select>
                       <label class="sr-only" for="inlineFormInputName2">Date</label>
                       <input type="date" name="date" class="form-control mb-2 mr-sm-2">
-                      <button name="search" type="submit" class="btn btn-primary mb-2">Search</button>
+                      <input name="search" type="submit" class="btn btn-primary mb-2"></input>
                     </form>
                   </div>
                 </div>
@@ -239,7 +239,7 @@ if($result_admin = mysqli_query($conn, $sql_admin))
               
               ?>
               <!-- End SQL Tag search order -->
-
+  
                 <div class="col-lg-12 grid-margin stretch-card" id="result">
                   <div class="card">
                     <div class="card-body">
@@ -296,7 +296,11 @@ if($result_admin = mysqli_query($conn, $sql_admin))
                               30.00
                               </td>
                             </tr>
-                          <?php } while ($rows_search = $result_search->fetch_array());}?>
+                              <?php } while ($rows_search = $result_search->fetch_array());} else {?>
+                            <tr>
+		                          <td colspan="7" align="center">No Order Recorded!</td>
+	                          </tr>
+	                            <?php } ?>
                           </tbody>
                         </table>
                       </div>
