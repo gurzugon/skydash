@@ -130,7 +130,7 @@ if($result_admin = mysqli_query($conn, $sql_admin))
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" data-toggle="collapse" href="#ui-basic" aria-expanded="false" aria-controls="ui-basic">
+            <a class="nav-link" data-toggle="collapse" aria-expanded="false" aria-controls="ui-basic">
               <i class="icon-layout menu-icon"></i>
               <span class="menu-title">Statement</span>
               <i class="menu-arrow"></i>
@@ -149,7 +149,7 @@ if($result_admin = mysqli_query($conn, $sql_admin))
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" data-toggle="collapse" href="#charts" aria-expanded="false" aria-controls="charts">
+            <a class="nav-link" data-toggle="collapse" aria-expanded="false" aria-controls="charts">
               <i class="icon-bar-graph menu-icon"></i>
               <span class="menu-title">List</span>
               <i class="menu-arrow"></i>
@@ -216,7 +216,7 @@ if($result_admin = mysqli_query($conn, $sql_admin))
                             </select>
                       <label class="sr-only" for="inlineFormInputName2">Date</label>
                       <input type="date" name="date" class="form-control mb-2 mr-sm-2">
-                      <button type="submit" class="btn btn-primary mb-2">Search</button>
+                      <button name="search" type="submit" class="btn btn-primary mb-2">Search</button>
                     </form>
                   </div>
                 </div>
@@ -224,9 +224,11 @@ if($result_admin = mysqli_query($conn, $sql_admin))
 
               <!-- SQL Tag search order -->
               <?php
+              isset($_POST['search']);
+
               $rider_name = $_POST['rider_name'];
               $date = $_POST['date'];
-
+              
               $sql = "SELECT * FROM orderlist WHERE rider_name LIKE '%$rider_name%' AND date LIKE '%$date%'";
                 if ($result_order = mysqli_query($conn, $sql))
                     {
@@ -234,6 +236,7 @@ if($result_admin = mysqli_query($conn, $sql_admin))
                         $total_search = $result_search->num_rows;
                         $num_search = 0;
                     }	
+              
               ?>
               <!-- End SQL Tag search order -->
 
