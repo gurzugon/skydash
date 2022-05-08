@@ -470,7 +470,7 @@ if (mysqli_num_rows($res_u) > 0 ) {
               <div class="form-group row">
                 <label class="col-sm-3 col-form-label">Tips(RM)</label>
                 <div class="col-sm-9">
-                  <input type="text" name="tips" class="form-control" required/>
+                  <input type="text" name="tips" onkeyup="calculate(this.value)" class="form-control" required/>
                 </div>
               </div>
             </div>
@@ -488,7 +488,7 @@ if (mysqli_num_rows($res_u) > 0 ) {
               <div class="form-group row">
                 <label class="col-sm-3 col-form-label">Sum Order(RM)</label>
                 <div class="col-sm-9">
-                  <input type="text" class="form-control" placeholder="posen2" readonly/>
+                  <input type="text" name="textbox5" class="form-control" placeholder="posen2" readonly/>
                 </div>
               </div>
             </div>
@@ -524,17 +524,17 @@ if (mysqli_num_rows($res_u) > 0 ) {
   </script>
   <script>  
   function calculate() {   
-    if(isNaN(document.forms["myform"]["qty"].value) || document.forms["myform"]["qty"].value=="") {   
+    if(isNaN(document.forms["myform"]["delivery_fees"].value) || document.forms["myform"]["delivery_fees"].value=="") {   
       var text1 = 0;   
     } else {   
-      var text1 = parseInt(document.forms["myform"]["qty"].value);   
+      var text1 = parseInt(document.forms["myform"]["delivery_fees"].value);   
     }   
-    if(isNaN(document.forms["myform"]["Cost"].value) || document.forms["myform"]["Cost"].value=="") {   
+    if(isNaN(document.forms["myform"]["tips"].value) || document.forms["myform"]["tips"].value=="") {   
       var text2 = 0;   
     } else {   
-      var text2 = parseFloat(document.forms["myform"]["Cost"].value);   
+      var text2 = parseFloat(document.forms["myform"]["tips"].value);   
     }   
-      document.forms["myform"]["textbox5"].value = (text1*text2);   
+      document.forms["myform"]["textbox5"].value = (text1+text2).toFixed(2);   
     }  
 </script>    
   <!-- plugins:js -->

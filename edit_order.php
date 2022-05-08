@@ -209,7 +209,7 @@ if($result_admin = mysqli_query($conn, $sql_admin))
                 <div class="card">
                   <div class="card-body">
                   <?php if($total_order>0) {do { ?>
-                   <form class="forms-sample" method="post">
+                   <form class="forms-sample" method="post" name="myform">
                       <div class="form-group">
                         <label>Order No.</label>
                         <input type="text" name="order_no" class="form-control" value="<?php echo $rows_order['order_no'];?>">
@@ -243,13 +243,13 @@ if($result_admin = mysqli_query($conn, $sql_admin))
                             <option value="Credit/Debit Card">Credit/Debit Card</option>
                           </select>
                         </div>
-                        <div class="form-group">
-                            <label>Tips (RM)</label>
-                            <input type="text" name="tips" class="form-control" value="<?php echo $rows_order['tips'];?>">
-                          </div>
-                          <div class="form-group">
+                         <div class="form-group">
                             <label>Delivery Fees (RM)</label>
                             <input type="text" name="delivery_fees" class="form-control" value="<?php echo $rows_order['delivery_fees'];?>">
+                          </div>
+                          <div class="form-group">
+                            <label>Tips (RM)</label>
+                            <input type="text" name="tips" onkeyup="calculate(this.value)" class="form-control" value="<?php echo $rows_order['tips'];?>">
                           </div>
                           <div class="form-group">
                             <label>Gross Sale (RM)</label>
@@ -257,7 +257,7 @@ if($result_admin = mysqli_query($conn, $sql_admin))
                           </div>
                           <div class="form-group">
                             <label>Sum Order (RM)</label>
-                            <input type="text" class="form-control"id="sum" placeholder="posen2" readonly/>
+                            <input type="text" name="textbox5" class="form-control" id="sum" placeholder="posen2" readonly/>
                           </div>
                       <button name="update" type="submit" class="btn btn-primary mr-2">Update</button>
                       <a href="list_rider">
@@ -284,6 +284,21 @@ if($result_admin = mysqli_query($conn, $sql_admin))
   </div>
   <!-- container-scroller -->
 
+  <script>  
+  function calculate() {   
+    if(isNaN(document.forms["myform"]["delivery_fees"].value) || document.forms["myform"]["delivery_fees"].value=="") {   
+      var text1 = 0;   
+    } else {   
+      var text1 = parseInt(document.forms["myform"]["delivery_fees"].value);   
+    }   
+    if(isNaN(document.forms["myform"]["tips"].value) || document.forms["myform"]["tips"].value=="") {   
+      var text2 = 0;   
+    } else {   
+      var text2 = parseFloat(document.forms["myform"]["tips"].value);   
+    }   
+      document.forms["myform"]["textbox5"].value = (text1+text2).toFixed(2);   
+    }  
+</script>
   <!-- plugins:js -->
   <script src="vendors/js/vendor.bundle.base.js"></script>
   <!-- endinject -->
