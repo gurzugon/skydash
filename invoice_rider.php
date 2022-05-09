@@ -205,7 +205,7 @@ if($result_admin = mysqli_query($conn, $sql_admin))
 
               <!-- SQL Tag search order -->
               <?php
-    
+              isset($_REQUEST['search']);
               $rider_name = $_POST['rider_name'];
               $date = $_POST['date'];
 
@@ -271,7 +271,7 @@ if($result_admin = mysqli_query($conn, $sql_admin))
                                 while($row = $result->fetch_assoc() ){ ?>
                             <tr>
                               <td>
-                              <?php echo $row['order_no'];?>
+                              <?php echo $row['order_no'] ;?>
                               </td>
                               <td>
                               <?php echo $row['rider_name'];?>

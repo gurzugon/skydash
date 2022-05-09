@@ -233,7 +233,7 @@ if($result_admin = mysqli_query($conn, $sql_admin))
                             <option value="Deactivate">Deactivate</option>
                           </select>
                         </div>
-                      <button name="update" type="submit" class="btn btn-primary mr-2">Updated</button>
+                      <button name="update" type="submit" class="btn btn-primary mr-2">Update</button>
                       <input type="button" value="Back" class="btn btn-light mr-2" onClick="history.go(-1);">
                      </form>
                     <?php } while ($rows_rider = $result_rider->fetch_array());}?>

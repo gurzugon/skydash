@@ -269,7 +269,7 @@ if($result_admin = mysqli_query($conn, $sql_admin))
                                       </div>
                                       <div class="min-width-cell">
                                         <p>Sum Order</p>
-                                        <h5>RM 26.00</h5>
+                                        <h5><?php echo $rows_order['sum_order'];?></h5>
                                       </div>
                                     </div>
                                   </div>
@@ -353,8 +353,8 @@ if (mysqli_num_rows($res_u) > 0 ) {
 				window.location='order';
 			</SCRIPT>");
 }else{
-	$sql_add = 	"INSERT INTO orderlist (order_no, date, status, vendor_name, rider_name, type_pay, delivery_fees, tips) VALUES 
-    ('".$_POST['order_no']."', '".$_POST['date']."', '".$_POST['status']."', '".$_POST['vendor_name']."', '".$_POST['rider_name']."', '".$_POST['type_pay']."', '".$_POST['delivery_fees']."', '".$_POST['tips']."')";
+	$sql_add = 	"INSERT INTO orderlist (order_no, date, status, vendor_name, rider_name, type_pay, delivery_fees, tips, gross_sale, sum_order) VALUES 
+    ('".$_POST['order_no']."', '".$_POST['date']."', '".$_POST['status']."', '".$_POST['vendor_name']."', '".$_POST['rider_name']."', '".$_POST['type_pay']."', '".$_POST['delivery_fees']."', '".$_POST['tips']."', '".$_POST['gross_sale']."', '".$_POST['textbox5']."')";
 	if($result_add = mysqli_query($conn, $sql_add))
 	{
 		
@@ -480,7 +480,7 @@ if (mysqli_num_rows($res_u) > 0 ) {
               <div class="form-group row">
                 <label class="col-sm-3 col-form-label">Gross Sale(RM)</label>
                 <div class="col-sm-9">
-                  <input type="text" class="form-control" placeholder="Geross" readonly/>
+                  <input type="text" name="gross_sale" class="form-control" placeholder="Gross" readonly/>
                 </div>
               </div>
             </div>
@@ -488,7 +488,7 @@ if (mysqli_num_rows($res_u) > 0 ) {
               <div class="form-group row">
                 <label class="col-sm-3 col-form-label">Sum Order(RM)</label>
                 <div class="col-sm-9">
-                  <input type="text" name="textbox5" class="form-control" placeholder="posen2" readonly/>
+                  <input type="text" name="textbox5" class="form-control" placeholder="Sum" readonly/>
                 </div>
               </div>
             </div>

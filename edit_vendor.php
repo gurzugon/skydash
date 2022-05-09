@@ -182,7 +182,7 @@ if($result_admin = mysqli_query($conn, $sql_admin))
                     {
                       
                       $sql_update = "UPDATE vendor SET vendor_name = '".$_POST['vendor_name']."', owner_name = '".$_POST['owner_name']."', 
-                      vendor_add = '".$_POST['vendor_add']."', ssm_no = '".$_POST['ssm_no']."' WHERE vendor_id = '".$_GET['vendor_id']."'";
+                      ssm_no = '".$_POST['ssm_no']."', vendor_add = '".$_POST['vendor_add']."' WHERE vendor_id = '".$_GET['vendor_id']."'";
                       if($result_update = mysqli_query($conn, $sql_update))
                       {
                         echo "<script language=javascript>alert('Vendor Updated!');
@@ -213,7 +213,7 @@ if($result_admin = mysqli_query($conn, $sql_admin))
                     <p class="card-description">
                       Vendor id : <?php echo $rows_rider['vendor_id'];?>
                     </p>
-                    <form class="forms-sample">
+                    <form class="forms-sample" method="post">
                       <div class="form-group">
                         <label>Vendor Name</label>
                         <input type="text" name="vendor_name" class="form-control" value="<?php echo $rows_vendor['vendor_name'];?>">
@@ -230,7 +230,7 @@ if($result_admin = mysqli_query($conn, $sql_admin))
                         <label>Address</label>
                         <input type="text" name="vendor_add" class="form-control" value="<?php echo $rows_vendor['vendor_add'];?>">
                       </div>
-                      <button name="update" type="submit" class="btn btn-primary mr-2">Updated</button>
+                      <button name="update" type="submit" class="btn btn-primary mr-2">Update</button>
                       <input type="button" value="Back" class="btn btn-light mr-2" onClick="history.go(-1);">
                     </form>
                     <?php } while ($rows_vendor = $result_vendor->fetch_array());}?>

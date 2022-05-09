@@ -182,7 +182,7 @@ if($result_admin = mysqli_query($conn, $sql_admin))
                       
                       $sql_update = "UPDATE orderlist SET order_no = '".$_POST['order_no']."', date = '".$_POST['date']."', 
                       status = '".$_POST['status']."', vendor_name = '".$_POST['vendor_name']."', rider_name = '".$_POST['rider_name']."', 
-                      type_pay = '".$_POST['type_pay']."', tips = '".$_POST['tips']."', delivery_fees = '".$_POST['delivery_fees']."' WHERE order_id = '".$_GET['order_id']."'";
+                      type_pay = '".$_POST['type_pay']."', tips = '".$_POST['tips']."', delivery_fees = '".$_POST['delivery_fees']."', gross_sale = '".$_POST['gross_sale']."', sum_order = '".$_POST['textbox5']."' WHERE order_id = '".$_GET['order_id']."'";
                       if($result_update = mysqli_query($conn, $sql_update))
                       {
                         echo "<script language=javascript>alert('Vendor Updated!');
@@ -245,22 +245,22 @@ if($result_admin = mysqli_query($conn, $sql_admin))
                         </div>
                          <div class="form-group">
                             <label>Delivery Fees (RM)</label>
-                            <input type="text" name="delivery_fees" class="form-control" value="<?php echo $rows_order['delivery_fees'];?>">
+                            <input type="number" step="0.01" name="delivery_fees" class="form-control" value="<?php echo $rows_order['delivery_fees'];?>">
                           </div>
                           <div class="form-group">
                             <label>Tips (RM)</label>
-                            <input type="text" name="tips" onkeyup="calculate(this.value)" class="form-control" value="<?php echo $rows_order['tips'];?>">
+                            <input type="number" step="0.01" name="tips" onkeyup="calculate(this.value)" class="form-control" value="<?php echo $rows_order['tips'];?>">
                           </div>
                           <div class="form-group">
                             <label>Gross Sale (RM)</label>
-                            <input type="text" class="form-control" id="gross" placeholder="ringgit2" readonly/>
+                            <input type="text" name="gross_sale" class="form-control" id="gross" placeholder="Gross" readonly/>
                           </div>
                           <div class="form-group">
                             <label>Sum Order (RM)</label>
-                            <input type="text" name="textbox5" class="form-control" id="sum" placeholder="posen2" readonly/>
+                            <input type="text" name="textbox5" class="form-control" id="sum" placeholder="<?php echo $rows_order['sum_order'];?>" readonly/>
                           </div>
                       <button name="update" type="submit" class="btn btn-primary mr-2">Update</button>
-                      <a href="list_rider">
+                      <a href="order">
                         <input type="button" value="Back" class="btn btn-light mr-2" onClick="history.go(-1);">
                       </a>
                     </form>
