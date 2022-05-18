@@ -205,16 +205,22 @@ if($result_admin = mysqli_query($conn, $sql_admin))
 
               <!-- SQL Tag search order -->
               <?php
-              isset($_REQUEST['search']);
-              $rider_name = $_POST['rider_name'];
-              $date = $_POST['date'];
-
-	              $sql_search= "SELECT * FROM orderlist WHERE rider_name LIKE '%$rider_name%' AND date <= '%$date%'";
-	              $result = $conn->query($sql);
-
+              if(isset($_POST['search']))
+              {
+              $sql_search = "SELECT * FROM orderlist WHERE rider_name = '".$_POST['rider_name']."' AND date = '".$_POST['date']."'";
+              if($result_search= mysqli_query($conn, $sql_search))
+	            {
+            	$rows_search = $result_search->fetch_array();
+	            $total_search = $result_search->num_rows;
+	            $num_search = 0;
+	            }
+              }
               ?>
               <!-- End SQL Tag search order -->
-  
+              <!-- Calculation -->
+              <?php
+              $total= $rows_search['delivery_fees'] + $rows_search['tips'] + $rows_search['sum_order'];
+              ?>
             <div class="col-12 grid-margin stretch-card">
                 <div class="card">
                   <div class="card-body">
@@ -271,22 +277,22 @@ if($result_admin = mysqli_query($conn, $sql_admin))
                                 while($row = $result->fetch_assoc() ){ ?>
                             <tr>
                               <td>
-                              <?php echo $row['order_no'] ;?>
+                              <?php echo $rows_search['order_no'] ;?>
                               </td>
                               <td>
-                              <?php echo $row['rider_name'];?>
+                              <?php echo $rows_search['rider_name'];?>
                               </td>
                               <td>
-                              <?php echo $row['date'];?>
+                              <?php echo $rows_search['date'];?>
                               </td>
                               <td>
-                              <?php echo $row['delivery_fees'];?>
+                              <?php echo $rows_search['delivery_fees'];?>
                               </td>
                               <td>
-                              <?php echo $row['tips'];?>
+                              <?php echo $rows_search['tips'];?>
                               </td>
                               <td>
-                              <?php echo $row['delivery_fees'];?>
+                              <?php echo $rows_search['sum_order'];?>
                               </td>
                               <td> 
                               30.00
@@ -328,7 +334,7 @@ if($result_admin = mysqli_query($conn, $sql_admin))
                                 </tr>
                                 <tr>
                                   <th>Payment to be received</th>
-                                  <th>RM 13.00</th>
+                                  <th><?php $total ?></th>
                                 </tr>
                               </tbody>
                             </table>
