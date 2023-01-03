@@ -19,28 +19,72 @@
   <!-- inject:css -->
   <link rel="stylesheet" href="css/vertical-layout-light/style.css">
   <!-- endinject -->
-  <link rel="shortcut icon" href="images/Zaiwani_logo2.png" />
+  <link rel="shortcut icon" href="images/icon.png" />
 </head>
+<style>
+    * {
+      box-sizing: border-box;
+    }
+    .formPopup {
+      display: none;
+      position: fixed;
+      left: 50%;
+      top: 20%;
+      transform: translate(-50%, 5%);
+      z-index: 9;
+    }
+    .formContainer input[type=text],
+    .formContainer input[type=password] {
+      width: 100%;
+      padding: 15px;
+      margin: 5px 0 20px 0;
+      border: none;
+      background: #eee;
+    }
+    .formContainer input[type=text]:focus,
+    .formContainer input[type=password]:focus {
+      background-color: #ddd;
+      outline: none;
+    }
+    .formContainer .btn {
+      padding: 12px 20px;
+      border: none;
+      background-color: #8ebf42;
+      color: #fff;
+      cursor: pointer;
+      width: 100%;
+      margin-bottom: 15px;
+      opacity: 0.8;
+    }
+    .formContainer .cancel {
+      background-color: #cc0000;
+    }
+    .formContainer .btn:hover,
+    .openButton:hover {
+      opacity: 1;
+    }
+  </style>
 <body>
   <div class="container-scroller sidebar-dark">
     <!-- partial:partials/_navbar.html -->
-    <nav class="navbar col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
-      <div class="text-center navbar-brand-wrapper d-flex align-items-center justify-content-center">
-        <a class="navbar-brand brand-logo mr-5" href="main.html"><img src="images/Zaiwani_logo.png" class="mr-2" alt="logo"/></a>
-        <a class="navbar-brand brand-logo-mini" href="main.html"><img src="images/Zaiwani_logo2.png" alt="logo"/></a>
+    <nav class="navbar col-lg-12 col-12 p-0 fixed-top d-flex flex-row" style="height: 50px;">
+      <div style="background-color: #fff;" class="text-center navbar-brand-wrapper d-flex align-items-center justify-content-center">
+        <a class="navbar-brand brand-logo mr-5" href="main.html"><img src="images/logo.png" class="mr-2" alt="logo"/></a>
+        <a class="navbar-brand brand-logo-mini" href="main.html"><img src="images/icon.png" alt="logo"/></a>
       </div>
       <div class="navbar-menu-wrapper d-flex align-items-center justify-content-end">
-        <button class="navbar-toggler navbar-toggler align-self-center" type="button" data-toggle="minimize">
-          <span class="icon-menu"></span>
-        </button>
         <ul class="navbar-nav mr-lg-2">
           <li class="nav-item nav-search d-none d-lg-block">
-           </li>
+          </li>
         </ul>
+        <center>
+          <h3 style="padding-right: 70px;" class="font-weight-bold">RM 28.00</h3>
+          <h6 style="padding-right: 65px;" class="font-weight-normal mb-0">22/12/2022, 12.00 PM</span></h6>
+        </center> 
         <ul class="navbar-nav navbar-nav-right">
           <li class="nav-item nav-profile dropdown">
             <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" id="profileDropdown">
-              <img src="images/faces/usr_icon.png" alt="profile"/>
+              <img src="images/faces/rider.png" alt="profile"/>
             </a>
             <div class="dropdown-menu dropdown-menu-right navbar-dropdown" aria-labelledby="profileDropdown">
               <a class="dropdown-item" href="index.html">
@@ -50,56 +94,11 @@
             </div>
           </li>
          </ul>
-        <button class="navbar-toggler navbar-toggler-right d-lg-none align-self-center" type="button" data-toggle="offcanvas">
-          <span class="icon-menu"></span>
-        </button>
       </div>
     </nav>
     <!-- partial -->
     <div class="container-fluid page-body-wrapper">
-      <!-- partial:partials/_sidebar.html -->
-      <nav class="sidebar sidebar-offcanvas sidebar-dark" id="sidebar">
-        <ul class="nav">
-          <li class="nav-item">
-            <a class="nav-link" href="main.html">
-              <i class="icon-grid menu-icon"></i>
-              <span class="menu-title">Dashboard</span>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" data-toggle="collapse" href="#ui-basic" aria-expanded="false" aria-controls="ui-basic">
-              <i class="icon-layout menu-icon"></i>
-              <span class="menu-title">Statement</span>
-              <i class="menu-arrow"></i>
-            </a>
-            <div class="collapse" id="ui-basic">
-              <ul class="nav flex-column sub-menu">
-                <li class="nav-item"> <a class="nav-link" href="invoice_vendor.html">Vendor</a></li>
-                <li class="nav-item"> <a class="nav-link" href="invoice_rider.html">Rider</a></li>
-              </ul>
-            </div>
-          </li>
-           <li class="nav-item">
-            <a class="nav-link" href="order.html">
-              <i class="icon-columns menu-icon"></i>
-              <span class="menu-title">Order</span>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" data-toggle="collapse" href="#charts" aria-expanded="false" aria-controls="charts">
-              <i class="icon-bar-graph menu-icon"></i>
-              <span class="menu-title">List</span>
-              <i class="menu-arrow"></i>
-            </a>
-            <div class="collapse" id="charts">
-              <ul class="nav flex-column sub-menu">
-                <li class="nav-item"> <a class="nav-link" href="list_vendor.html">Vendor</a></li>
-                <li class="nav-item"> <a class="nav-link" href="list_rider.html">Rider</a></li>
-              </ul>
-            </div>
-          </li>
-        </ul>
-      </nav>
+     
       <!-- partial -->
       <div class="main-panel">
         <div class="content-wrapper">
@@ -107,223 +106,88 @@
             <div class="col-md-12 grid-margin">
               <div class="row">
                 <div class="col-12 col-xl-8 mb-4 mb-xl-0">
-                  <h3 class="font-weight-bold">Welcome <--user_ID--></h3>
-                  <h6 class="font-weight-normal mb-0">All systems are running smoothly!</span></h6>
+                  <h3 class="font-weight-bold">Rider Shift</h3>  
+                  <h6 class="font-weight-normal mb-0">Ali Bin Abu</span></h6>
+                  <h6 class="font-weight-normal mb-0">d01</span></h6>
+                </div>
+                <button style="background-color: #db2b30;" type="button" class="btn btn-primary btn-icon-text openButton" onclick="openForm()">
+                    <i class="ti-plus btn-icon-prepend"></i>
+                    <i class="ti-timer btn-icon-prepend"></i>
+                    Add Shift
+                </button>
+              </div>
+            </div>
+          </div>
+         
+          <div class="col-lg-12 grid-margin stretch-card">
+            <div class="card">
+              <div class="card-body">
+               <h4 class="card-title">Shift Details</h4>
+                <div class="table-responsive">
+                  <table class="table table-striped">
+                    <thead>
+                      <tr>
+                        <th>
+                          Shift ID
+                        </th>
+                        <th>
+                          Day
+                        </th>
+                        <th>
+                          Shift
+                        </th>
+                        <th>
+                          Action
+                        </th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>
+                          01
+                        </td>
+                        <td>
+                          Monday
+                        </td>
+                        <td>
+                          8.00 A.M -12.00 A.M
+                        </td>
+                        <td>
+                           <button style="background-color: #db2b30;" title="Delete" type="button" class="btn btn-primary btn-rounded btn-icon">
+                                <i class="ti-trash"></i>
+                            </button>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>
+                         02
+                        </td>
+                        <td>
+                          Monday
+                        </td>
+                        <td>
+                          4.00 P.M - 8.00 P.M
+                        </td>
+                        <td>
+                            <button style="background-color: #db2b30;" title="Delete" type="button" class="btn btn-primary btn-rounded btn-icon">
+                              <i class="ti-trash"></i>
+                            </button>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
                 </div>
               </div>
             </div>
           </div>
-          <div class="row">
-            <div class="col-md-6 grid-margin stretch-card">
-              <div class="card tale-bg">
-                <div class="card-people mt-auto">
-                  <img src="images/dashboard/people.svg" alt="people">
-                  <div class="weather-info">
-                    <div class="d-flex">
-                      <div>
-                        <h2 class="mb-0 font-weight-normal"><i class="icon-sun mr-2"></i>31<sup>C</sup></h2>
-                      </div>
-                      <div class="ml-2">
-                        <h4 class="location font-weight-normal"> 12/4/2022</h4>
-                        <h6 class="font-weight-normal">04.19 p.m</h6>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="col-md-6 grid-margin transparent">
-              <div class="row">
-                <div class="col-md-6 mb-4 stretch-card transparent">
-                  <div class="card card-tale">
-                    <div class="card-body">
-                      <p class="mb-4">Total Orders</p>
-                      <p class="fs-30 mb-2">4006</p>
-                      <p>10.00% </p>
-                    </div>
-                  </div>
-                </div>
-                <div class="col-md-6 mb-4 stretch-card transparent">
-                  <div class="card card-dark-blue">
-                    <div class="card-body">
-                      <p class="mb-4">Number of User</p>
-                      <p class="fs-30 mb-2">61344</p>
-                      <p>22.00% </p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div class="row">
-                <div class="col-md-6 mb-4 mb-lg-0 stretch-card transparent">
-                  <div class="card card-light-blue">
-                    <div class="card-body">
-                      <p class="mb-4">Number of Vendors</p>
-                      <p class="fs-30 mb-2">34040</p>
-                      <p>2.00% </p>
-                    </div>
-                  </div>
-                </div>
-                <div class="col-md-6 stretch-card transparent">
-                  <div class="card card-light-danger">
-                    <div class="card-body">
-                      <p class="mb-4">Number of Riders</p>
-                      <p class="fs-30 mb-2">47033</p>
-                      <p>0.22% </p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="row">
-            <div class="col-md-4 stretch-card grid-margin">
-              <div class="card">
-                <div class="card-body">
-                  <p class="card-title mb-0">Vendors</p>
-                  <div class="table-responsive">
-                    <table class="table table-borderless">
-                      <thead>
-                        <tr>
-                          <th class="pl-0  pb-2 border-bottom">Vendor Name</th>
-                          <th class="border-bottom pb-2">Orders</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        <tr>
-                          <td class="pl-0">Kentucky</td>
-                          <td><p class="mb-0"><span class="font-weight-bold mr-2">65</span></p></td>
-                         </tr>
-                        <tr>
-                          <td class="pl-0">Ohio</td>
-                          <td><p class="mb-0"><span class="font-weight-bold mr-2">54</span></p></td>
-                         </tr>
-                        <tr>
-                          <td class="pl-0">Nevada</td>
-                          <td><p class="mb-0"><span class="font-weight-bold mr-2">22</span></p></td>
-                          </tr>
-                        <tr>
-                          <td class="pl-0">North Carolina</td>
-                          <td><p class="mb-0"><span class="font-weight-bold mr-2">46</span></p></td>
-                          </tr>
-                        <tr>
-                          <td class="pl-0">Montana</td>
-                          <td><p class="mb-0"><span class="font-weight-bold mr-2">17</span></p></td>
-                          </tr>
-                        <tr>
-                          <td class="pl-0">Nevada</td>
-                          <td><p class="mb-0"><span class="font-weight-bold mr-2">52</span></p></td>
-                          </tr>
-                        <tr>
-                          <td class="pl-0 pb-0">Louisiana</td>
-                          <td class="pb-0"><p class="mb-0"><span class="font-weight-bold mr-2">25</span></p></td>
-                         </tr>
-                      </tbody>
-                    </table>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="col-md-4 stretch-card grid-margin">
-              <div class="card">
-                <div class="card-body">
-                  <p class="card-title mb-0">Riders</p>
-                  <div class="table-responsive">
-                    <table class="table table-borderless">
-                      <thead>
-                        <tr>
-                          <th class="pl-0  pb-2 border-bottom">Name</th>
-                          <th class="border-bottom pb-2">Orders</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        <tr>
-                          <td class="pl-0">Kentucky</td>
-                          <td><p class="mb-0"><span class="font-weight-bold mr-2">65</span></p></td>
-                         </tr>
-                        <tr>
-                          <td class="pl-0">Ohio</td>
-                          <td><p class="mb-0"><span class="font-weight-bold mr-2">54</span></p></td>
-                          </tr>
-                        <tr>
-                          <td class="pl-0">Nevada</td>
-                          <td><p class="mb-0"><span class="font-weight-bold mr-2">22</span></p></td>
-                          </tr>
-                        <tr>
-                          <td class="pl-0">North Carolina</td>
-                          <td><p class="mb-0"><span class="font-weight-bold mr-2">46</span></p></td>
-                          </tr>
-                        <tr>
-                          <td class="pl-0">Montana</td>
-                          <td><p class="mb-0"><span class="font-weight-bold mr-2">17</span></p></td>
-                          </tr>
-                        <tr>
-                          <td class="pl-0">Nevada</td>
-                          <td><p class="mb-0"><span class="font-weight-bold mr-2">52</span></p></td>
-                          </tr>
-                        <tr>
-                          <td class="pl-0 pb-0">Louisiana</td>
-                          <td class="pb-0"><p class="mb-0"><span class="font-weight-bold mr-2">25</span></p></td>
-                          </tr>
-                      </tbody>
-                    </table>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="col-md-4 stretch-card grid-margin">
-              <div class="card">
-                <div class="card-body">
-                  <p class="card-title mb-0">Admins</p>
-                  <div class="table-responsive">
-                    <table class="table table-borderless">
-                      <thead>
-                        <tr>
-                          <th class="pl-0  pb-2 border-bottom">Name</th>
-                          <th class="border-bottom pb-2">Roles</th>
-                          <th class="border-bottom pb-2">Email</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        <tr>
-                          <td class="pl-0">Kentucky</td>
-                          <td><p class="mb-0"><span class="font-weight-bold mr-2">Gardener</span></p></td>
-                          <td class="pl-0">1@test.io</td>
-                         </tr>
-                        <tr>
-                          <td class="pl-0">Ohio</td>
-                          <td><p class="mb-0"><span class="font-weight-bold mr-2">Security</span></p></td>
-                          <td class="pl-0">1@test.io</td>
-                          </tr>
-                        <tr>
-                          <td class="pl-0">Nevada</td>
-                          <td><p class="mb-0"><span class="font-weight-bold mr-2">Baker</span></p></td>
-                          <td class="pl-0">1@test.io</td>
-                         </tr>
-                        <tr>
-                          <td class="pl-0">North Carolina</td>
-                          <td><p class="mb-0"><span class="font-weight-bold mr-2">Police</span></p></td>
-                          <td class="pl-0">1@test.io</td>
-                          </tr>
-                        <tr>
-                          <td class="pl-0">Montana</td>
-                          <td><p class="mb-0"><span class="font-weight-bold mr-2">Tourist</span></p></td>
-                          <td class="pl-0">1@test.io</td>
-                          </tr>
-                      </tbody>
-                    </table>
-                  </div>
-                 </div>
-                </div>
-               </div>
-              </div>
-            </div>
+        </div>
         <!-- content-wrapper ends -->
         <!-- partial:partials/_footer.html -->
         <footer class="footer">
           <div class="d-sm-flex justify-content-center justify-content-sm-between">
-            <span class="text-muted text-center text-sm-left d-block d-sm-inline-block">Copyright © 2021-2022.  Zaiwani holdings Sdn Bhd. All rights reserved.</span>
+            <span class="text-muted text-center text-sm-left d-block d-sm-inline-block">Copyright © 2022. Maqan Sdn Bhd.</span>
           </div>
-        </footer>  
+        </footer> 
         <!-- partial -->
       </div>
       <!-- main-panel ends -->
@@ -331,7 +195,60 @@
     <!-- page-body-wrapper ends -->
   </div>
   <!-- container-scroller -->
+  <!-- Form rider -->
+  <div class="col-md-6 grid-margin stretch-card formPopup" id="popupForm" style="background-color: #9796f4;">
+    
+      <div class="card-body"><a class="close" href="#" onclick="closeForm()">&times;</a>
+        <h4 class="card-title">Add Rider Shift</h4>
+        <form class="forms-sample">
+          <div class="form-group">
+            <div class="col-md-6">
+              <div class="form-group row">
+                <label class="col-sm-3 col-form-label">Available Shift</label>
+                <div class="col-sm-9">
+                  <select class="form-control">
+                    <option>--Shift--</option>
+                    <option>Monday(8.00A.M-12.00P.M)(5)</option>
+                    <option>Monday(11.00A.M-4.00P.M)(5)</option>
+                    <option>Monday(4.00P.M-8.00P.M)(5)</option>
+                    <option>Monday(6.00P.M-10.00P.M)(5)</option>
+                    <option>Tuesday(8.00A.M-12.00P.M)(5)</option>
+                    <option>Tuesday(11.00A.M-4.00P.M)(5)</option>
+                    <option>Tuesday(4.00P.M-8.00P.M)(5)</option>
+                    <option>Tuesday(6.00P.M-10.00P.M)(5)</option>
+                    <option>Wednesday(8.00A.M-12.00P.M)(5)</option>
+                    <option>Wednesday(11.00A.M-4.00P.M)(5)</option>
+                    <option>Wednesday(4.00P.M-8.00P.M)(5)</option>
+                    <option>Wednesday(6.00P.M-10.00P.M)(5)</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="form-check form-check-flat form-check-primary">
+        </div>
+          <button type="submit" class="btn btn-primary mr-2">Submit</button>
+        </form>
+      </div>
+    </div>
+  </div>
 
+  <script>
+    function openForm() {
+      document.getElementById("popupForm").style.display = "block";
+    }
+    function closeForm() {
+      document.getElementById("popupForm").style.display = "none";
+    }
+  </script>
+  <script>
+    function openForm2() {
+      document.getElementById("popupForm2").style.display = "block";
+    }
+    function closeForm2() {
+      document.getElementById("popupForm2").style.display = "none";
+    }
+  </script>
   <!-- plugins:js -->
   <script src="vendors/js/vendor.bundle.base.js"></script>
   <!-- endinject -->

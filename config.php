@@ -1,8 +1,8 @@
 <?php
 $host = "localhost";
-$username = "id17993851_invoice01";
-$password = "O1xNb3NlQ7Jgk|WV";
-$db_name = "id17993851_invoice";
+$username = "u971974946_rider";
+$password = "Admin@112912**";
+$db_name = "u971974946_rider";
 
 //create connection
 $conn = new mysqli($host, $username, $password, $db_name);

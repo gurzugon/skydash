@@ -4,20 +4,33 @@ session_start();
 
 if(isset($_POST['submit']))
 {
-	$sql_login = "SELECT * FROM user WHERE email =
-	'".$_POST['email']."' AND password ='".$_POST['password']."'";
+
+  //Getting Post Values
+  $userID= $_POST['userID'];
+	$phone = $_POST['phone'];
+
+	//Prevent SQL Injection
+  $userID = stripslashes($userID);
+	$phone = stripslashes($phone);
+
+	//Prevent SQL Injection	
+  $userID = mysqli_real_escape_string($conn, $userID);
+	$phone = mysqli_real_escape_string($conn, $phone);
+
+	$sql_login = "SELECT * FROM user WHERE userID = '$userID' AND phone =
+	'$phone'";
 	if($result_login = mysqli_query($conn, $sql_login))
 	{
 		$rows_login = $result_login->fetch_array();
 		if($total_login = $result_login->num_rows)
 		{
-			$_SESSION['user_id'] = $rows_login['user_id'];
-			header('Location:main');
+			$_SESSION['userID'] = $rows_login['userID'];
+			header('Location:main.php');
 			
 		}
 				else
 					{
-						echo "<script language=javascript>alert('Invalid Email or Password!');
+						echo "<script language=javascript>alert('Invalid ID or Phone Number!');
 						window.location='index';</script>";
 					}
 	}
@@ -29,8 +42,10 @@ if(isset($_POST['submit']))
 <head>
   <!-- Required meta tags -->
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no"/>
-  <title>Maqan Statement</title>
+  <meta name="viewport" content="user-scalable=no">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+  
+  <title>Rider Schedule</title>
   <!-- plugins:css -->
   <link rel="stylesheet" href="vendors/feather/feather.css">
   <link rel="stylesheet" href="vendors/ti-icons/css/themify-icons.css">
@@ -41,7 +56,12 @@ if(isset($_POST['submit']))
   <!-- inject:css -->
   <link rel="stylesheet" href="css/vertical-layout-light/style.css">
   <!-- endinject -->
-  <link rel="shortcut icon" href="images/Zaiwani_logo2.png" />
+  <link rel="shortcut icon" href="images/icon.png" />
+  <script type = "text/javascript" >
+    function preventBack(){window.history.forward();}
+    setTimeout("preventBack()", 0);
+    window.onunload=function(){null};
+  </script>
 </head>
 
 <body>
@@ -50,28 +70,24 @@ if(isset($_POST['submit']))
       <div class="content-wrapper d-flex align-items-center auth px-0">
         <div class="row w-100 mx-0">
           <div class="col-lg-4 mx-auto">
-            <div class="auth-form-light text-left py-5 px-4 px-sm-5" style="background-color: #232227;">
+            <div class="auth-form-light text-left py-5 px-4 px-sm-5" style="background-color: #28343c;">
               <div class="brand-logo">
-                <img src="../../images/Zaiwani_logo.png" alt="logo">
+                <img src="images/logo.png" alt="logo">
               </div>
               <h4 style="color: aliceblue;">Hello! let's get started</h4>
-              <h6 class="font-weight-light" style="color: #ffff;">Sign in to continue.</h6>
+              <h6 class="font-weight-light" style="color: #ffff;">Insert phone number.</h6>
               <form class="pt-3" role="login" method="post">
-                <div class="form-group">
-                  <input type="text" name="email" class="form-control form-control-lg" placeholder="Email" required>
+              <div class="form-group">
+                  <input style="color: #fff;" type="text" name="userID" class="form-control form-control-lg" placeholder="Rider ID" required>
                 </div>
                 <div class="form-group">
-                  <input type="password" name="password" class="form-control form-control-lg" placeholder="Password" required>
+                  <input style="color: #fff;" type="text" name="phone" class="form-control form-control-lg" placeholder="Phone No." required>
                 </div>
                 <div class="mt-3">
-                  <button type="submit" name="submit" class="btn btn-block btn-primary btn-lg font-weight-medium auth-form-btn">Login</button>
+                  <button style="background-color: #db2b30; border-color: #db2b30;" type="submit" name="submit" class="btn btn-block btn-primary btn-lg font-weight-medium auth-form-btn">Submit</button>
                 </div>
                 <div class="my-2 d-flex justify-content-between align-items-center">
                   <div class="form-check">
-                    <label style="color: #ffff;" class="form-check-label text-muted">
-                      <input type="checkbox" class="form-check-input">
-                      Keep me signed in
-                    </label>
                   </div>
                  </div>
               </form>
